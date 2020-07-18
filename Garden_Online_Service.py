@@ -83,17 +83,17 @@ class Flowers:
         if self.total_packs >= 5:
             print("You have qualified for a 10% discount")
             print("------------------------------------")
-            print( "Sub Total: {0:.2f} EURO".format( self.price() ) )
-            print( "Discount: {0:.2f} EURO".format( self.discount() ) )
+            print( "Sub Total: \u20ac{0:.2f}".format( self.price() ) )
+            print( "Discount: \u20ac{0:.2f}".format( self.discount() ) )
         else:
             print( "You have not qualified for any discount" )
             print( "------------------------------------" )
-            print( "Sub Total: {0:.2f} EURO".format( self.price() ) )
-            print( "Discount: {0:.2f} EURO".format( self.discount() ) )
+            print( "Sub Total: \u20ac{0:.2f}".format( self.price() ) )
+            print( "Discount: \u20ac{0:.2f} ".format( self.discount() ) )
 
         price_after_discount = self.price() - self.discount()
-        print( "Delivery: {} EURO ({})".format( delivery_result[0], delivery_result[1]) )
-        print("Grand Total: {0:.2f} EURO" .format(price_after_discount + delivery_result[0]))
+        print( "Delivery: \u20ac{} ({})".format( delivery_result[0], delivery_result[1]) )
+        print("Grand Total: \u20ac{0:.2f} " .format(price_after_discount + delivery_result[0]))
 
 
 print("Welcome to Bingley Garden Centre Delivery Service.." )
