@@ -5,13 +5,18 @@ class Flowers:
         'Lobelia': 9,
         'Petunias': 9
     }
-    area = {
+    area_per_packs = {
         'Begonias': 6 * 30 * 30,
         'Geraniums': 6 * 30 * 30,
         'Lobelia': 9 * 15 * 15,
         'Petunias': 9 * 30 * 30
     }
-
+    cost_per_packs ={
+        'Begonias': 4.25,
+        'Geraniums':  4.25,
+        'Lobelia': 3.55,
+        'Petunias': 3.55
+    }
     def __init__(self, b, g, l, p):
         self.begonius = b
         self.geraniums = g
@@ -26,15 +31,35 @@ class Flowers:
         return plants
 
     def areas(self):
-        area_req = (self.begonius * Flowers.area.get( 'Begonias' ) + self.geraniums * Flowers.area.get(
-            'Geraniums' ) + self.lobelia * Flowers.area.get( 'Lobelia' ) + self.petunias * Flowers.area.get(
+        area_req = (self.begonius * Flowers.area_per_packs.get( 'Begonias' ) + self.geraniums * Flowers.area_per_packs.get(
+            'Geraniums' ) + self.lobelia * Flowers.area_per_packs.get( 'Lobelia' ) + self.petunias * Flowers.area_per_packs.get(
             'Petunias' )) / 1000
         return area_req
 
+    def price(self):
+        total_price = (self.begonius * Flowers.cost_per_packs.get( 'Begonias' ) + self.geraniums * Flowers.cost_per_packs.get(
+            'Geraniums' ) + self.lobelia * Flowers.cost_per_packs.get( 'Lobelia' ) + self.petunias * Flowers.cost_per_packs.get(
+            'Petunias' ))
+        return total_price
+
+    def discount(self):
+        total_price = self.price()
+        discount = total_price / 100 * 10
+        return discount
+
     def display(self):
         print( "Thank you for your order, you have ordered..." )
-        print( "{} packs of plants or {} individual plants.".format( self.total_packs, self.total_plants()))
-        print( "You have enough plant to cover {} square metres.".format( self.areas()))
+        print( "{} packs of plants or {} individual plants.".format( self.total_packs, self.total_plants() ) )
+        print( "You have enough plant to cover {} square metres.".format( self.areas() ) )
+        if self.total_packs >= 5:
+            print("You have qualified for a 10% discount")
+            print("------------------------------------")
+            print( "Sub Total: {} EURO".format( self.price() ) )
+            print( "Discount: {} EURO".format( self.discount() ) )
+        else:
+            print( "Sub Total: {} EURO".format( self.price() ) )
+            print( "Discount: 0.00 EURO")
+
 
 
 print( "Welcome to Bingley Garden Centre Delivery Service.." )
