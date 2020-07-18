@@ -83,17 +83,17 @@ class Flowers:
         if self.total_packs >= 5:
             print("You have qualified for a 10% discount")
             print("------------------------------------")
-            print( "Sub Total: {} EURO".format( self.price() ) )
-            print( "Discount: {} EURO".format( self.discount() ) )
+            print( "Sub Total: {0:.2f} EURO".format( self.price() ) )
+            print( "Discount: {0:.2f} EURO".format( self.discount() ) )
         else:
             print( "You have not qualified for any discount" )
             print( "------------------------------------" )
-            print( "Sub Total: {} EURO".format( self.price() ) )
-            print( "Discount: {} EURO".format( self.discount() ) )
+            print( "Sub Total: {0:.2f} EURO".format( self.price() ) )
+            print( "Discount: {0:.2f} EURO".format( self.discount() ) )
 
         price_after_discount = self.price() - self.discount()
         print( "Delivery: {} EURO ({})".format( delivery_result[0], delivery_result[1]) )
-        print("Grand Total: {} EURO" .format(price_after_discount + delivery_result[0]))
+        print("Grand Total: {0:.2f} EURO" .format(price_after_discount + delivery_result[0]))
 
 
 print("Welcome to Bingley Garden Centre Delivery Service.." )
@@ -104,5 +104,5 @@ lobelia = int( input( "Lobelia (9 pack):" ) )
 petunias = int( input( "Petunias (9 pack):" ) )
 postcode = input("What is the first part of your postcode(BD??):")
 
-customer = Flowers( begonias, geraniums, lobelia, petunias, postcode)
+customer = Flowers( begonias, geraniums, lobelia, petunias, postcode.upper())
 customer.display()
