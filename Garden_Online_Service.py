@@ -1,3 +1,4 @@
+import sys
 class Flowers:
     flowers = {
         'Begonias': 6,
@@ -11,17 +12,27 @@ class Flowers:
         'Lobelia': 9 * 15 * 15,
         'Petunias': 9 * 30 * 30
     }
-    cost_per_packs ={
+    cost_per_packs = {
         'Begonias': 4.25,
         'Geraniums':  4.25,
         'Lobelia': 3.55,
         'Petunias': 3.55
     }
-    def __init__(self, b, g, l, p):
+    delivery_area_charges = {
+        'BD16': ['Bingley', 3.55],
+        'BD21': ['Central Kingley & Shipley', 4.00],
+        'BD16': ['Central Kingley & Shipley', 4.00],
+        'BD17': ['Central Kingley & Shipley', 4.00],
+        'BD20': ['Outer Keighley', 5.00],
+        'BD22': ['Outer Keighley', 5.00]
+    }
+
+    def __init__(self, b, g, l, p, pc):
         self.begonius = b
         self.geraniums = g
         self.lobelia = l
         self.petunias = p
+        self.postcode = pc
         self.total_packs = b + g + l + p
 
     def total_plants(self):
@@ -43,11 +54,29 @@ class Flowers:
         return total_price
 
     def discount(self):
-        total_price = self.price()
-        discount = total_price / 100 * 10
+        if self.total_packs >= 5:
+            total_price = self.price()
+            discount = total_price / 100 * 10
+        else:
+            discount = 0.00
         return discount
 
+    def delivery_charge(self):
+        try:
+            for code, info in self.delivery_area_charges.items():
+                if self.postcode in code:
+                    for i in range( len( info ) ):
+                        charge = info[1]
+                        place = info[0]
+                        # print("Delivery:{} EURO ({})" .format(charge, info[0]))
+                        break
+            return charge, place
+        except:
+            print("Sorry We don't have the facility to delivery there!")
+            sys.exit(1)
+
     def display(self):
+        delivery_result = self.delivery_charge()
         print( "Thank you for your order, you have ordered..." )
         print( "{} packs of plants or {} individual plants.".format( self.total_packs, self.total_plants() ) )
         print( "You have enough plant to cover {} square metres.".format( self.areas() ) )
@@ -57,17 +86,23 @@ class Flowers:
             print( "Sub Total: {} EURO".format( self.price() ) )
             print( "Discount: {} EURO".format( self.discount() ) )
         else:
+            print( "You have not qualified for any discount" )
+            print( "------------------------------------" )
             print( "Sub Total: {} EURO".format( self.price() ) )
-            print( "Discount: 0.00 EURO")
+            print( "Discount: {} EURO".format( self.discount() ) )
+
+        price_after_discount = self.price() - self.discount()
+        print( "Delivery: {} EURO ({})".format( delivery_result[0], delivery_result[1]) )
+        print("Grand Total: {} EURO" .format(price_after_discount + delivery_result[0]))
 
 
-
-print( "Welcome to Bingley Garden Centre Delivery Service.." )
-print( "How many packs of the following plants would you like?" )
+print("Welcome to Bingley Garden Centre Delivery Service.." )
+print("How many packs of the following plants would you like?")
 begonias = int( input( "Begonias (6 pack):" ) )
 geraniums = int( input( "geraniums (6 pack):" ) )
 lobelia = int( input( "Lobelia (9 pack):" ) )
 petunias = int( input( "Petunias (9 pack):" ) )
+postcode = input("What is the first part of your postcode(BD??):")
 
-customer = Flowers( begonias, geraniums, lobelia, petunias )
+customer = Flowers( begonias, geraniums, lobelia, petunias, postcode)
 customer.display()
